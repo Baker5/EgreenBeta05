@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="가입이 완료되었습니다."
+        android:gravity="center_horizontal"
+        android:textSize="17dp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <!-- 학번 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/a3_strNumTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="학번"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/a3_strNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="학번"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+    <!-- 학번 -->
+
+    <!-- 이름 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/a3_nameTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="이름"/>
+
+        <TextView
+            android:id="@+id/a3_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이름"/>
+
+    </LinearLayout>
+    <!-- 이름 -->
+
+    <!-- 생년일일 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/a3_birthTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="생일"/>
+
+        <TextView
+            android:id="@+id/a3_birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2018년 1월 1일"/>
+
+    </LinearLayout>
+    <!-- 생년일일 -->
+
+    <!-- 이메일 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/a3_emailTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="이메일"/>
+
+        <TextView
+            android:id="@+id/a3_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="이메일"/>
+
+    </LinearLayout>
+    <!-- 이메일 -->
+
+    <!-- 휴대폰 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+
+        <TextView
+            android:id="@+id/a3_phoneTitle"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="휴대폰"/>
+
+        <TextView
+            android:id="@+id/a3_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="휴대폰"/>
+
+    </LinearLayout>
+    <!-- 휴대폰 -->
+
+    <Button
+        android:id="@+id/a3_login"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="로그인하기"
+        android:textStyle="bold"
+        android:textColor="#fff"
+        android:textSize="15dp"
+        android:background="@drawable/btn_back_color"/>
+</LinearLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.egreen.egreenbeta05">
+
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- 인터넷 허용 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" /> <!-- 전화걸기 허용 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 3g/4g 상태 접근 허용 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- wifi 상태 접근 허용 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 일련번호를 가져오기 위한 권한 허용 -->
+    <uses-permission android:name="android.permission.READ_PRIVILEGED_PHONE_STAT" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
+    <application
+        android:allowBackup="false"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".A1_Main"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".A2_Login"
+            android:label="@string/a2_login"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".A3_Join"
+            android:label="@string/a3_join"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".A3_JoinTerms" />
+        <activity
+            android:name=".A4_FindId"
+            android:label="@string/a4_find_id"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".A4_FindPw"
+            android:label="@string/a4_find_pw"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".A5_QuickAdvice"
+            android:label="@string/a5_quick_advice"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".A6_RequestLecture"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".A6_StudyCenter"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".A7_ClassRoom"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".Survey"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".StudyAgreement"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name=".A1_NoticeWebView"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+            android:name=".A8_Learning"
+            android:screenOrientation="landscape"
+            android:theme="@style/learningTheme" />
+        <activity
+            android:name=".ClassNotiContents"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <service
+            android:name=".BackgroundService"
+            android:enabled="true"
+            android:exported="true" />
+    </application>
+
+</manifest>

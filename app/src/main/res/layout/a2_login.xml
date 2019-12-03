@@ -1,0 +1,210 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/a2_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.egreen.egreenbeta05.A2_Login"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+
+    <androidx.appcompat.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:background="@drawable/border_bottom"
+        app:contentInsetStart="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="로그인"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- 학번 및 비밀번호 입력, 로그인 버튼 영역 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:paddingTop="25dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/a2_inputID"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:paddingLeft="10dp"
+            android:hint="학번을 입력하세요.(PC와 동일)"
+            android:textSize="15sp"
+            android:background="@drawable/border"
+            android:singleLine="true"
+            android:maxLines="1"/>
+
+        <EditText
+            android:id="@+id/a2_inputPASS"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="10dp"
+            android:hint="비밀번호를 입력하세요."
+            android:textSize="15sp"
+            android:inputType="textPassword"
+            android:background="@drawable/border"
+            android:singleLine="true"
+            android:maxLines="1"/>
+
+        <Button
+            android:id="@+id/a2_loginBt"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            android:text="로그인"
+            android:textSize="19dp"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:background="@drawable/btn_back_color"/>
+
+        <RelativeLayout
+            android:id="@+id/LoginLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:layout_marginTop="10dp"
+            android:paddingRight="5dp">
+
+            <CheckBox
+                android:id="@+id/chk_savedLoginInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="학번/비밀번호 저장"/>
+
+            <Button
+                android:id="@+id/a2_findID"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/a2_findPASS"
+                android:background="@android:color/transparent"
+                android:text="학번 찾기"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/a2_findPASS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent"
+                android:text="비밀번호 찾기"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+    <!-- 학번 및 비밀번호 입력, 로그인 버튼 영역 -->
+
+    <!-- 회원가입 버튼 및 안내 영역 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:orientation="vertical">
+
+        <!-- 회원가입 -->
+        <Button
+            android:id="@+id/a2_joinBt"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="10dp"
+            android:textAllCaps="false"
+            android:text="아직 e그린의 회원이 아니신가요?"
+            android:background="@drawable/btn_emptyback_color" />
+        <!-- 회원가입 -->
+
+    </LinearLayout>
+    <!-- 회원가입 버튼 및 안내 영역 -->
+
+    <!-- 빠른상담, 전화문의 영역 -->
+    <LinearLayout
+        android:id="@+id/bottom_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_quick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="빠른상담"
+            android:background="@drawable/btn_emptyback_color"/>
+
+        <Button
+            android:id="@+id/btn_call"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="전화문의"
+            android:background="@drawable/btn_emptyback_color"/>
+    </LinearLayout>
+    <!-- 빠른상담, 전화문의 영역 -->
+
+    <!-- 학번/비밀번호 찾기, 단말기 재등록 영역 -->
+    <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:layout_marginBottom="8dp">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/a2_findID"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:text="학번 찾기"-->
+                <!--android:textSize="12dp"/>-->
+
+            <!--<Button-->
+                <!--android:id="@+id/a2_findPASS"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:text="비밀번호 찾기"-->
+                <!--android:textSize="12dp"/>-->
+
+        <!--</LinearLayout>-->
+    <!--</RelativeLayout>-->
+    <!-- 학번/비밀번호 찾기, 단말기 재등록 영역 -->
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:gravity="bottom|right"
+        android:textSize="12dp"
+        android:text="V 1.4.1"/>
+
+</LinearLayout>

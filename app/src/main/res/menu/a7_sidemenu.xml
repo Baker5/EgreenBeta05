@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/Noti"
+            android:icon="@drawable/slide_icon01"
+            android:title="공지사항"/>
+
+        <item
+            android:id="@+id/studyState"
+            android:icon="@drawable/slide_icon01"
+            android:title="출석현황"/>
+
+        <item
+            android:id="@+id/toProfessor"
+            android:icon="@drawable/slide_icon01"
+            android:title="교수님께"/>
+
+    </group>
+
+    <group
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/selfIntroduce"
+            android:icon="@drawable/slide_icon01"
+            android:title="자기소개서"/>
+
+        <item
+            android:id="@+id/myGoal"
+            android:icon="@drawable/slide_icon01"
+            android:title="나의학습목표"/>
+
+        <item
+            android:id="@+id/myNote"
+            android:icon="@drawable/slide_icon01"
+            android:title="금주의쪽지"/>
+
+        <item
+            android:id="@+id/discussion"
+            android:icon="@drawable/slide_icon01"
+            android:title="토론"/>
+
+    </group>
+
+</menu>

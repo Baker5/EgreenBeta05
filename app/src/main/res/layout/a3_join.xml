@@ -1,0 +1,248 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/a3_join_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.egreen.egreenbeta05.A3_Join">
+
+    <androidx.appcompat.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStart="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="회원가입"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- 이름, 생년월일, 성별, 비밀번호, 휴대폰번호, 이메일 주소 입력 및 약관 동의 영역 -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="25dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:background="#FFFFFF">
+
+            <!-- 이름 -->
+            <EditText
+                android:id="@+id/a3_inputName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border"
+                android:hint="이름을 입력해주세요."
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:textSize="13dp" />
+            <!-- 이름 -->
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp">
+
+                <!-- 생년월일 -->
+                <EditText
+                    android:id="@+id/a3_inputBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/border"
+                    android:hint="생년월일을 입력해주세요."
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:paddingLeft="10dp"
+                    android:textSize="13dp" />
+                <!-- 생년월일 -->
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_male"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:text="남" />
+
+                    <Button
+                        android:id="@+id/btn_female"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        android:gravity="center"
+                        android:text="여"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!-- 비밀번호 -->
+            <EditText
+                android:id="@+id/a3_inputPw"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border"
+                android:hint="비밀번호를 입력해주세요."
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:inputType="textPassword"
+                android:textSize="13dp" />
+
+            <EditText
+                android:id="@+id/a3_reInputPw"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/border"
+                android:hint="비밀번호를 한번 더 입력해주세요."
+                android:maxLines="1"
+                android:paddingLeft="10dp"
+                android:inputType="textPassword"
+                android:textSize="13dp" />
+            <!-- 비밀번호 -->
+
+            <!-- 휴대폰 번호 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <Spinner
+                    android:id="@+id/a3_inputPhone1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="30dp"
+                    android:layout_marginRight="2dp"
+                    android:textSize="13dp"
+                    android:background="@drawable/border"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"/>
+
+                <EditText
+                    android:id="@+id/a3_inputPhone2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:textSize="13dp"
+                    android:background="@drawable/border"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"/>
+
+                <EditText
+                    android:id="@+id/a3_inputPhone3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:textSize="13dp"
+                    android:background="@drawable/border"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <!-- 이메일 주소 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <EditText
+                    android:id="@+id/a3_inputEmail1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="e메일을 입력해주세요."
+                    android:textSize="13dp"
+                    android:paddingLeft="10dp"
+                    android:layout_marginRight="7dp"
+                    android:background="@drawable/border"
+                    android:inputType="textEmailAddress"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\@"/>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/a3_inputEmail2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="[직접입력]"
+                        android:textSize="13dp"
+                        android:paddingLeft="10dp"
+                        android:layout_marginLeft="7dp"
+                        android:background="@drawable/border"
+                        android:inputType="textEmailAddress"/>
+
+                    <Spinner
+                        android:id="@+id/a3_emailSpinner"
+                        android:layout_width="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/a3_joinBt"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_back_color"
+                android:text="가입하기"
+                android:textColor="#fff"
+                android:textSize="19dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+        <!-- 이름, 생년월일, 성별, 비밀번호, 휴대폰번호, 이메일 주소 입력 및 약관 동의 영역 -->
+    </ScrollView>
+</LinearLayout>

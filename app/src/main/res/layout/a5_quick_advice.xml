@@ -1,0 +1,157 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/a5_quick_advice"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.egreen.egreenbeta05.A5_QuickAdvice"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:contentInsetStart="0dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="빠른상담"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 이름, 휴대폰번호, 희망전공과정, 문의사항 입력 영역 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="25dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:orientation="vertical">
+
+            <!-- 이름 -->
+            <EditText
+                android:id="@+id/a5_QAInputName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="7dp"
+                android:hint="이름을 입력해주세요."
+                android:textSize="13dp"
+                android:paddingLeft="10dp"
+                android:background="@drawable/border"/>
+
+            <!-- 휴대폰 번호 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginBottom="7dp"
+                android:weightSum="3">
+
+                <Spinner
+                    android:id="@+id/a5_QAInputPhone1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="30dp"
+                    android:layout_marginRight="2dp"
+                    android:textSize="13dp"
+                    android:background="@drawable/border"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"/>
+
+                <EditText
+                    android:id="@+id/a5_QAInputPhone2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:textSize="13dp"
+                    android:background="@drawable/border"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="-"/>
+
+                <EditText
+                    android:id="@+id/a5_QAInputPhone3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_marginLeft="2dp"
+                    android:textSize="13dp"
+                    android:background="@drawable/border"
+                    android:inputType="numberDecimal"
+                    android:maxLength="4"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <!-- 희망전공과정 -->
+            <Spinner
+                android:id="@+id/a5_QAClassSelect"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textSize="13dp"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border"/>
+
+            <!-- 희망상담시간 -->
+            <Spinner
+                android:id="@+id/a5_QATimeSelect"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:textSize="13dp"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border"/>
+
+            <!-- 문의사항 -->
+            <EditText
+                android:id="@+id/a5_QAInputAdvice"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:hint="문의사항을 남겨주세요."
+                android:textSize="13dp"
+                android:gravity="start"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:layout_marginBottom="7dp"
+                android:background="@drawable/border"/>
+
+            <Button
+                android:id="@+id/a5_QABt"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="30dp"
+                android:text="확인"
+                android:textStyle="bold"
+                android:textColor="#fff"
+                android:textSize="19dp"
+                android:background="@drawable/btn_back_color"/>
+
+        </LinearLayout>
+        <!-- 이름, 휴대폰번호, 희망전공과정, 문의사항 입력 영역 -->
+    </ScrollView>
+
+</LinearLayout>
