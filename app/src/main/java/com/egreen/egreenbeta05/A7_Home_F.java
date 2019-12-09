@@ -137,12 +137,10 @@ public class A7_Home_F extends Fragment {
 
         Log.i(TAG, id + "," + classId);
 
-        orientation.setVisibility(View.INVISIBLE);          //중복 로그인 먼저 업데이트 후, 재구현
-
         notiJson_parsing();     //과목별 공지사항
         listJson_parsing();     //주차별 진행율
 
-        //오리엔테이션
+        String _orientation = getArguments().getString("ORIENTATION");
         String _studyAgree = getArguments().getString("STUDY_AGREE");
         String _myGoal = getArguments().getString("MY_GOAL");
         int _myNote = getArguments().getInt("MY_NOTE");
@@ -153,6 +151,18 @@ public class A7_Home_F extends Fragment {
                         "/학습목표 ==>> " + _myGoal +
                         "/금주의 쪽지 ==>> " + _myNote +
                         "/자기소개서 ==>> " + _selfIntroduce);
+
+        /*
+            오리엔테이션 상태 변경
+         */
+        orientation.setTypeface(null, Typeface.NORMAL);
+        if (_orientation.equals("False")) {
+            orientation.setText("오리엔테이션 [열람전]");
+        }
+        else {
+            orientation.setTypeface(null, Typeface.BOLD);
+            orientation.setText("오리엔테이션 [염람완료]");
+        }
 
         /*
             학습동의서 상태 변경
@@ -242,6 +252,14 @@ public class A7_Home_F extends Fragment {
             discussionRegdate.setText(_discussion);
             discussionRegdate.setVisibility(View.VISIBLE);
         }
+
+        //오리엔테이션 버튼 터치 이벤트
+        orientation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onButtonPressed("ori");
+            }
+        });
     }
 
     /**

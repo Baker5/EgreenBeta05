@@ -316,7 +316,7 @@ public class A2_Login extends AppCompatActivity implements View.OnClickListener 
             encodingPw = pw;
         }
 
-        String url = "http://cb.egreen.co.kr/mobile_proc/login/new/login_proc_m2.asp";
+        String url = "http://cb.egreen.co.kr/mobile_proc/login/new/login_proc_m3.asp";
         ContentValues cValue = new ContentValues();
         cValue.put("userId", id);
         cValue.put("userPw", encodingPw);
@@ -539,18 +539,18 @@ public class A2_Login extends AppCompatActivity implements View.OnClickListener 
             showAlert(AF_NOID, "학번 또는 비밀번호가 다릅니다.\n다시한번 확인해주세요.");
         }
         else if (errCode.equals(AF_NO_MATCH_MKEY)) {
-            RegDevice regDevice = new RegDevice(this, R.layout.reg_device_dig);
-            regDevice.callResultDialog();
-            regDevice.setCsDialogListener(new RegDevice.CsDialogListener() {
-                @Override
-                public void onPositiveClicked(String s) {
-                    Log.i(TAG, "단말기 변경 하겠슴까?: " + s);
-
-                    if (s.equals("OK")) {
-                        changeMobileLogin();
-                    }
-                }
-            });
+//            RegDevice regDevice = new RegDevice(this, R.layout.reg_device_dig);
+//            regDevice.callResultDialog();
+//            regDevice.setCsDialogListener(new RegDevice.CsDialogListener() {
+//                @Override
+//                public void onPositiveClicked(String s) {
+//                    Log.i(TAG, "단말기 변경 하겠슴까?: " + s);
+//
+//                    if (s.equals("OK")) {
+//                        changeMobileLogin();
+//                    }
+//                }
+//            });
         }
         else if (errCode.equals(AF_STOP_USER)) {
             showAlert(AF_STOP_USER, "일시정지된 회원은 로그인할 수 없습니다.\n본원에 문의주세요!");
@@ -563,81 +563,81 @@ public class A2_Login extends AppCompatActivity implements View.OnClickListener 
         }
     }
 
-    /**
-     * 모바일 기기 변경 통신을 한다.
-     */
-    private void changeMobileLogin() {
-        if (isEmpty()) {
-            String url = "http://cb.egreen.co.kr/mobile_proc/findUserInfo/new/reDevice_m2.asp";
-            ContentValues cValues = new ContentValues();
-
-            cValues.put("userId", id);      //새로 접속한 모바일 기기에 아이디가 저장되어 있을 수 없다.
-
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
-                cValues.put("userMKey", Build.SERIAL);
-            } else {
-                cValues.put("userMKey", serial);
-            }
-            cValues.put("userMDevice", Build.BRAND + "::" + Build.MODEL);
-
-            ChangeMobileNetTask changeMobileNT = new ChangeMobileNetTask(url, cValues);
-            changeMobileNT.execute();
-        }
-    }
-
-    /**
-     * 기기 변경을 남기기 위한 AsyncTask
-     */
-    private class ChangeMobileNetTask extends AsyncTask<Void, Void, String> {
-        private String url;
-        private ContentValues values;
-
-        public ChangeMobileNetTask(String url, ContentValues values) {
-            this.url = url;
-            this.values = values;
-        }
-
-        @Override
-        protected String doInBackground(Void... voids) {
-            String result;
-
-            NetworkConnection nc = new NetworkConnection();
-            result = nc.request(url, values);
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            String result = s;
-
-            if (result.equals("FAIL")) {
-                //네트워크 통신 오류
-            }
-            else {
-                AlertDialog.Builder ab = new AlertDialog.Builder(A2_Login.this);
-
-                if (result.equals("OK")) {
-                    ab.setMessage("변경되었습니다\n로그인 하시겠어요?");
-                    ab.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            doLogin();
-                        }
-                    });
-                    ab.setNegativeButton("아니오", null);
-                    ab.show();
-                }
-                else {
-                    ab.setTitle("기기 변경 오류");
-                    ab.setMessage("변경에 실패했습니다\n본 원으로 문의해주세요\n오류:" + result);
-                    ab.setPositiveButton("확인", null);
-                    ab.show();
-                }
-            }
-        }
-    }
+//    /**
+//     * 모바일 기기 변경 통신을 한다.
+//     */
+//    private void changeMobileLogin() {
+//        if (isEmpty()) {
+//            String url = "http://cb.egreen.co.kr/mobile_proc/findUserInfo/new/reDevice_m2.asp";
+//            ContentValues cValues = new ContentValues();
+//
+//            cValues.put("userId", id);      //새로 접속한 모바일 기기에 아이디가 저장되어 있을 수 없다.
+//
+//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+//                cValues.put("userMKey", Build.SERIAL);
+//            } else {
+//                cValues.put("userMKey", serial);
+//            }
+//            cValues.put("userMDevice", Build.BRAND + "::" + Build.MODEL);
+//
+//            ChangeMobileNetTask changeMobileNT = new ChangeMobileNetTask(url, cValues);
+//            changeMobileNT.execute();
+//        }
+//    }
+//
+//    /**
+//     * 기기 변경을 남기기 위한 AsyncTask
+//     */
+//    private class ChangeMobileNetTask extends AsyncTask<Void, Void, String> {
+//        private String url;
+//        private ContentValues values;
+//
+//        public ChangeMobileNetTask(String url, ContentValues values) {
+//            this.url = url;
+//            this.values = values;
+//        }
+//
+//        @Override
+//        protected String doInBackground(Void... voids) {
+//            String result;
+//
+//            NetworkConnection nc = new NetworkConnection();
+//            result = nc.request(url, values);
+//
+//            return result;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            super.onPostExecute(s);
+//            String result = s;
+//
+//            if (result.equals("FAIL")) {
+//                //네트워크 통신 오류
+//            }
+//            else {
+//                AlertDialog.Builder ab = new AlertDialog.Builder(A2_Login.this);
+//
+//                if (result.equals("OK")) {
+//                    ab.setMessage("변경되었습니다\n로그인 하시겠어요?");
+//                    ab.setPositiveButton("예", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            doLogin();
+//                        }
+//                    });
+//                    ab.setNegativeButton("아니오", null);
+//                    ab.show();
+//                }
+//                else {
+//                    ab.setTitle("기기 변경 오류");
+//                    ab.setMessage("변경에 실패했습니다\n본 원으로 문의해주세요\n오류:" + result);
+//                    ab.setPositiveButton("확인", null);
+//                    ab.show();
+//                }
+//            }
+//        }
+//    }
 
     /**
      * Notify 띄우기

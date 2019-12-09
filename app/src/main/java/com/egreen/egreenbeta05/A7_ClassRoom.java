@@ -26,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.egreen.egreenbeta05.Adapter.A7_ClassNotiAdapter;
@@ -56,9 +57,8 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
 
     private static final int HOME = 1;
     private static final int NOW = 2;
+    private static final String LOGOUT = "logout";
 
-    private DrawerLayout drawerLayout;
-    private ActionBarDrawerToggle mDrawerToggle;
     int choiseJucha;
     int minJucha, maxJucha;
     Button btn_home, btn_course;
@@ -85,20 +85,6 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.menu);    //액션바 왼쪽 버튼 이미지 설정
         getSupportActionBar().setHomeButtonEnabled(true);
 
-//        drawerLayout = findViewById(R.id.drawerLayout);
-
-//        mDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
-//            @Override
-//            public void onDrawerClosed(View drawerView) {
-//                super.onDrawerClosed(drawerView);
-//            }
-//
-//            @Override
-//            public void onDrawerOpened(View drawerView) {
-//                super.onDrawerOpened(drawerView);
-//            }
-//        };
-
         //A6_StudyCenter 또는 A8_Learning 에서 전달한 학습정보를 저장
         si = (StudyInfo) getIntent().getSerializableExtra("studyInfo");
 
@@ -110,9 +96,11 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
 
         btn_home = findViewById(R.id.btn_home);
         btn_course = findViewById(R.id.btn_course);
+        ImageButton btn_logout = findViewById(R.id.btn_logout);
 
         btn_home.setOnClickListener(this);
         btn_course.setOnClickListener(this);
+        btn_logout.setOnClickListener(this);
 
         final NetworkStateCheck netCheck = new NetworkStateCheck(this);
         if (netCheck.isConnectionNet()) {
@@ -161,9 +149,12 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
         if (result.equals("FAIL")) {
             //네트워크 통신 오류
         }
+        else if (result.equals("0")) {
+            Log.i(TAG, result + " is empty");
+        }
         else {
-            if (result.equals("0")) {
-                Log.i(TAG, result + " is empty");
+            if (what.equals(LOGOUT)) {
+                initCertyAndFinish();
             }
             else {
                 json_parsing(result);
@@ -332,6 +323,9 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
                     setTabHighlight(NOW);
                 }
                 break;
+            case R.id.btn_logout:
+                alertLogout();
+                break;
         }
     }
 
@@ -357,6 +351,7 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
             bundle.putInt("MIN_JUCHA", minJucha);
             bundle.putInt("MAX_JUCHA", maxJucha);
 
+            bundle.putString("ORIENTATION", si.getOrientation().trim());
             bundle.putString("STUDY_AGREE", si.getDongPost().trim());
             bundle.putString("MY_GOAL", si.getMyGoal().trim());
             bundle.putInt("MY_NOTE", Integer.parseInt(si.getMyNote().trim()));
@@ -385,26 +380,32 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * A8_Learning 으로 이동
+     * 로그아웃을 위한 통신이다.
      */
-    private void moveActivity(int jucha, int chasi, String eCid, String watchedTime,
-                              String fullTime, String fileRoot, boolean enable) {
-        Log.i(TAG, "is Enable ==> " + enable);
+    private void netConnForLogout() {
+        String url = "http://cb.egreen.co.kr/mobile_proc/login/new/logout_proc_m2.asp";
+        ContentValues cValues = new ContentValues();
+        cValues.put("userId", si.getUserId());
+        cValues.put("ulNum", si.getLoginNumber());
 
-        Intent intent = new Intent(this, A8_Learning.class);
-        intent.putExtra("CLASS_ID", si.getClassId());
-        intent.putExtra("JUCHA", jucha);
-        intent.putExtra("CHASI", chasi);
-        intent.putExtra("CID", eCid);
-        intent.putExtra("WATCHED_TIME", watchedTime);
-        intent.putExtra("FULL_TIME", fullTime);
-        intent.putExtra("DIRECTORY_NAME", si.getDirectoryName());
-        intent.putExtra("FILE_ROOT", fileRoot);
-        intent.putExtra("ENABLE", enable);
-        intent.putExtra("studyInfo", si);
+        asyncTask = new NetworkAsyncTasker(this, url, cValues, LOGOUT);
+        asyncTask.execute();
+    }
 
-        startActivity(intent);
-        finish();
+    /**
+     * 로그아웃 Alert을 띄운다.
+     */
+    public void alertLogout() {
+        AlertDialog.Builder ab = new AlertDialog.Builder(this);
+        ab.setMessage("로그아웃 하시겠어요?");
+        ab.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                netConnForLogout();
+            }
+        });
+        ab.setNegativeButton("아니오", null);
+        ab.show();
     }
 
     /**
@@ -524,31 +525,6 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * 오리엔테이션을 들으러 간다. -> A8_Learning
-     */
-    private void goOrientation() {
-        if (si.getOrientation().equals("")) {
-            SharedPreferences savedOrien = getSharedPreferences("PARTI_ACT", MODE_PRIVATE);
-            SharedPreferences.Editor editor = savedOrien.edit();
-            editor.putString("SAVE_ORIEN", "True");
-            editor.commit();
-        }
-
-        Intent intent = new Intent(A7_ClassRoom.this, A8_Learning.class);
-        intent.putExtra("JUCHA", 0);
-        intent.putExtra("CHASI", 0);
-        intent.putExtra("CID", "0000");
-        intent.putExtra("WATCHED_TIME", "00");
-        intent.putExtra("FULL_TIME", "00");
-        intent.putExtra("DIRECTORY_NAME", si.getDirectoryName());
-        intent.putExtra("FILE_ROOT", "");
-        intent.putExtra("ENABLE", false);
-
-        startActivity(intent);
-        finish();
-    }
-
-    /**
      * A7_HOME_F -> A7_ClassRoom
      */
     @Override
@@ -571,6 +547,37 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }
+    }
+
+    /**
+     * 오리엔테이션을 들으러 간다. -> A8_Learning
+     */
+    private void goOrientation() {
+        if (si.getOrientation().equals("")) {
+            SharedPreferences savedOrien = getSharedPreferences("PARTI_ACT", MODE_PRIVATE);
+            SharedPreferences.Editor editor = savedOrien.edit();
+            editor.putString("SAVE_ORIEN", "True");
+            editor.commit();
+        }
+
+        try {
+            Log.i(TAG, "getDirectoryName =========> " + si.getDirectoryName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Intent intent = new Intent(A7_ClassRoom.this, A8_Learning.class);
+        intent.putExtra("JUCHA", 0);
+        intent.putExtra("CHASI", 0);
+        intent.putExtra("CID", "0000");
+        intent.putExtra("WATCHED_TIME", "00");
+        intent.putExtra("FULL_TIME", "00");
+        intent.putExtra("FILE_ROOT", "");
+        intent.putExtra("ENABLE", false);
+        intent.putExtra("studyInfo", si);
+
+        startActivity(intent);
+        finish();
     }
 
     /**
@@ -610,9 +617,32 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
 //            loading = new ShowLoading(this, "강의를 불러오는 중입니다");
 //            loading.start();
 
-                moveActivity(jucha, chasi, eCid, watchedTiem, fullTime, fileRoot, enable);
+                goLearning(jucha, chasi, eCid, watchedTiem, fullTime, fileRoot, enable);
             }
         }
+    }
+
+    /**
+     * A8_Learning 으로 이동
+     */
+    private void goLearning(int jucha, int chasi, String eCid, String watchedTime,
+                            String fullTime, String fileRoot, boolean enable) {
+        Log.i(TAG, "학점 인정 가능한 수업 ==> " + enable);
+
+        Intent intent = new Intent(this, A8_Learning.class);
+        intent.putExtra("CLASS_ID", si.getClassId());
+        intent.putExtra("JUCHA", jucha);
+        intent.putExtra("CHASI", chasi);
+        intent.putExtra("CID", eCid);
+        intent.putExtra("WATCHED_TIME", watchedTime);
+        intent.putExtra("FULL_TIME", fullTime);
+        intent.putExtra("DIRECTORY_NAME", si.getDirectoryName());
+        intent.putExtra("FILE_ROOT", fileRoot);
+        intent.putExtra("ENABLE", enable);
+        intent.putExtra("studyInfo", si);
+
+        startActivity(intent);
+        finish();
     }
 
     /**
@@ -674,11 +704,6 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
      * 중복 로그인 알림
      */
     private void logoutByLoginOverlap(String result) {
-        SharedPreferences savedCertyState = getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
-        SharedPreferences.Editor editor = savedCertyState.edit();
-        editor.putBoolean("certyState", false);
-        editor.commit();
-
         String [] arrResult = result.split(",");
         AlertDialog.Builder ab = new AlertDialog.Builder(this);
         ab.setMessage("중복 로그인이 감지되어 로그아웃 되었습니다.\n\n" +
@@ -690,9 +715,21 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //moveToA2_Login
-                finish();
+                initCertyAndFinish();
             }
         }).show();
+    }
+
+    /**
+     * 공인인증서 상태 초기화 및 finish()
+     */
+    public void initCertyAndFinish() {
+        SharedPreferences savedCertyState = getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
+        SharedPreferences.Editor editor = savedCertyState.edit();
+        editor.putBoolean("certyState", false);
+        editor.commit();
+
+        finish();
     }
 
     /**
@@ -752,45 +789,23 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    /**
-     * 메뉴바 홈 버튼 터치로 네비게이션 드로어를 호출한다.
-     */
-//    @Override
-//    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
-//        활성화할 경우, Toolbar 의 홈버튼이 사라진다.
-//        super.onPostCreate(savedInstanceState);
-//        mDrawerToggle.syncState();
-//    }
-
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        drawerLayout.closeDrawers();
         return false;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.a7_sidemenu, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-
-        if (item.getItemId() == android.R.id.home) {
-            drawerLayout.openDrawer(GravityCompat.START);
-        }
-
         return super.onOptionsItemSelected(item);
     }
 

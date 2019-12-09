@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.media.Image;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -25,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,8 +103,10 @@ public class A6_StudyCenter extends AppCompatActivity implements View.OnClickLis
         myClassList = findViewById(R.id.myClassList);
         TextView userName = findViewById(R.id.userName);
         Button btn_request = findViewById(R.id.btn_request);
+        ImageButton btn_logout = findViewById(R.id.btn_logout);
 
         btn_request.setOnClickListener(this);
+        btn_logout.setOnClickListener(this);
 
         savedCertyState = getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
 
@@ -142,7 +146,11 @@ public class A6_StudyCenter extends AppCompatActivity implements View.OnClickLis
         //로그인 상태 확인 필요..
         switch (v.getId()) {
             case R.id.btn_request:
-                startActivity(new Intent(this, A6_RequestLecture.class));
+                Intent intent = new Intent(this, A6_RequestLecture.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_logout:
+                alertLogout();
                 break;
         }
     }
@@ -694,6 +702,22 @@ public class A6_StudyCenter extends AppCompatActivity implements View.OnClickLis
     }
     ////////////////////// ----------------------- 공인인증서 -------------------------------///////////////////
 
+    /**
+     * 로그아웃 Alert을 띄운다.
+     */
+    public void alertLogout() {
+        AlertDialog.Builder ab = new AlertDialog.Builder(this);
+        ab.setMessage("로그아웃 하시겠어요?");
+        ab.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                netConnForLogout();
+            }
+        });
+        ab.setNegativeButton("아니오", null);
+        ab.show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return super.onCreateOptionsMenu(menu);
@@ -707,17 +731,7 @@ public class A6_StudyCenter extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onBackPressed() {
 //        super.onBackPressed();
-
-        AlertDialog.Builder ab = new AlertDialog.Builder(this);
-        ab.setMessage("로그아웃 하시겠어요?");
-        ab.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                netConnForLogout();
-            }
-        });
-        ab.setNegativeButton("아니오", null);
-        ab.show();
+        alertLogout();
     }
 
     /**

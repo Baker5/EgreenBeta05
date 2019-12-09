@@ -80,7 +80,7 @@
             android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
             android:name=".A8_Learning"
-            android:screenOrientation="landscape"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/learningTheme" />
         <activity
             android:name=".ClassNotiContents"

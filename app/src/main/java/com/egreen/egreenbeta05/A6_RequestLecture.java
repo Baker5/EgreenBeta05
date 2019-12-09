@@ -29,7 +29,7 @@ import java.net.URISyntaxException;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class A6_RequestLecture extends AppCompatActivity implements View.OnClickListener {
+public class A6_RequestLecture extends AppCompatActivity {
 
     private static final String TAG = A6_RequestLecture.class.getSimpleName();
     private static final String DOMAIN = "http://cb.egreen.co.kr/mobile_proc/lecture/";
@@ -42,8 +42,7 @@ public class A6_RequestLecture extends AppCompatActivity implements View.OnClick
     WebView a6_lecutreList;
 
     /* 상태 저장 */
-    String id, name;
-    SharedPreferences mPref;
+    String id;
     SharedPreferences.Editor editor;
 
     /* WebView가 전부 로딩될때까지 보여줄 Dialog */
@@ -85,7 +84,6 @@ public class A6_RequestLecture extends AppCompatActivity implements View.OnClick
 
         // 저장된 학번, 이름을 가져온다.
         id = getUserId();
-        name = getUserName();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             a6_lecutreList.getSettings().setMixedContentMode(a6_lecutreList.getSettings().MIXED_CONTENT_ALWAYS_ALLOW);
@@ -93,9 +91,11 @@ public class A6_RequestLecture extends AppCompatActivity implements View.OnClick
         }
 //        CookieSyncManager.getInstance().sync();
 
-        String urlData = "cUserId=" + id + "&cUserName=" + name;
+        String urlData = "cUserId=" + id;
         Log.i(TAG, "urlData: " + urlData);
         a6_lecutreList.loadUrl(DOMAIN + "lecture_list_m.asp?" + urlData);
+
+        showGuide();
     }
 
     public void showGuide() {
@@ -103,7 +103,7 @@ public class A6_RequestLecture extends AppCompatActivity implements View.OnClick
         ab.setCancelable(false);
 
         String guide = "" +
-                "개강일을 선택하여 신청할 수 없습니다." +
+                "모바일에서는 개강일을 선택하여 신청할 수 없습니다." +
                 "\n다른 개강일의 수강신청을 원하면 PC로 신청해주세요." +
                 "\n\n수강신청현황은 홈페이지에서 확인할 수 있습니다." +
                 "\n\n30만원 이상 신용카드결제시 '공인인증서' 인증이 필요합니다." +
@@ -113,11 +113,6 @@ public class A6_RequestLecture extends AppCompatActivity implements View.OnClick
                 .setMessage(guide)
                 .setPositiveButton("확인", null)
                 .show();
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     private class NetworkConnect extends AsyncTask<Void, Void, String> {
@@ -487,31 +482,6 @@ public class A6_RequestLecture extends AppCompatActivity implements View.OnClick
         }
 
         return id;
-    }
-
-    /**
-     * 회원 이름을 가져온다.
-     */
-    private String getUserName() {
-        /*
-         * 저장되어 있는 회원 ID를 가져온다.
-         */
-        SharedPreferences savedID = getSharedPreferences("LOGIN_INFO", MODE_PRIVATE);
-        String name = "";
-        try {
-            name = savedID.getString("UNAME", "");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        if (name.equals("")) {
-            Log.i(TAG, "회원 이름 없다.");
-        }
-        else {
-//            Log.i(TAG, id);
-        }
-
-        return name;
     }
 
     private void quitRequestLecture() {

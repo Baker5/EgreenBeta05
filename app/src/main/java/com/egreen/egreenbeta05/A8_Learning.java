@@ -3,15 +3,21 @@ package com.egreen.egreenbeta05;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -19,6 +25,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AbsoluteLayout;
+import android.widget.LinearLayout;
 
 import com.egreen.egreenbeta05.Data.StudyInfo;
 
@@ -56,8 +64,11 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a8_learning);
 
-        getWindow().getAttributes().width = WindowManager.LayoutParams.MATCH_PARENT;
-        getWindow().getAttributes().height = WindowManager.LayoutParams.MATCH_PARENT;
+        if (Build.VERSION.SDK_INT <= 23) {
+            Log.i(TAG, "This is API Level 23");
+            getWindow().getAttributes().width = WindowManager.LayoutParams.MATCH_PARENT;
+            getWindow().getAttributes().height = WindowManager.LayoutParams.MATCH_PARENT;
+        }
 
         wv = findViewById(R.id.wv);
 
@@ -217,10 +228,11 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
         return "";
     }
 
+    /**
+     * Async 결과 전달 받음
+     */
     @Override
-    public void processFinish(String result, String what) {
-
-    }
+    public void processFinish(String result, String what) { }
 
     /**
      * 브라우저
@@ -586,6 +598,20 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
         //액티비티 종료될때 반드시 제거
         jindoTimer.cancel();
 
+        Log.i(TAG, "onDestroy()");
+
         super.onDestroy();
     }
+
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//
+//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//            Log.i(TAG, "가로");
+//        }
+//        else {
+//            Log.i(TAG, "세로");
+//        }
+//    }
 }
