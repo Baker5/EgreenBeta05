@@ -150,17 +150,22 @@ public class A7_Home_F extends Fragment {
                         "/학습동의서 ==>> " + _studyAgree +
                         "/학습목표 ==>> " + _myGoal +
                         "/금주의 쪽지 ==>> " + _myNote +
-                        "/자기소개서 ==>> " + _selfIntroduce);
+                        "/자기소개서 ==>> " + _selfIntroduce +
+                        "/오리엔테이션 ===>> " + _orientation);
 
         /*
             오리엔테이션 상태 변경
          */
         orientation.setTypeface(null, Typeface.NORMAL);
         if (_orientation.equals("False")) {
+            orientation.setTextColor(ContextCompat.getColor(getContext(), R.color.gray));
+            orientation.setBackgroundResource(R.drawable.border_gray);
             orientation.setText("오리엔테이션 [열람전]");
         }
         else {
             orientation.setTypeface(null, Typeface.BOLD);
+            orientation.setTextColor(ContextCompat.getColor(getContext(), R.color.black));
+            orientation.setBackgroundResource(R.drawable.border_black);
             orientation.setText("오리엔테이션 [염람완료]");
         }
 

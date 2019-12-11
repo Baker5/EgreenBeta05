@@ -50,6 +50,7 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
 
     int viewTime, maxTime, minutes, second;
     ShowLoading loading;
+    String loadingTxt;
 
     //AsyncTask 결과값을 받기위한 변수
     NetworkAsyncTasker asyncTask;
@@ -64,6 +65,7 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a8_learning);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
         if (Build.VERSION.SDK_INT <= 23) {
             Log.i(TAG, "This is API Level 23");
             getWindow().getAttributes().width = WindowManager.LayoutParams.MATCH_PARENT;
@@ -170,12 +172,12 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
         String contentsUrl;
         String domain = "http://cb.egreen.co.kr/contents_m/android/" + si.getDirectoryName();
         if (jucha == 0) {
+            loadingTxt = "오리엔테이션을 불러오는 중입니다.";
             contentsUrl = domain + "/00/orientation.html";
-//                contentsUrl = "http://cb.egreen.co.kr/contents_m/tmp/2018_34ina/01/01.html";
         }
         else {
+            loadingTxt = "강의를 불러오는 중입니다!";
             contentsUrl = domain + "/" + fileRoot;
-//                contentsUrl = "http://cb.egreen.co.kr/contents_m/tmp/2018_34ina/01/01.html";
         }
 
         netCheck = new NetworkStateCheck(this);
@@ -243,8 +245,12 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
             //페이지 로딩 시작
-            loading = new ShowLoading(A8_Learning.this, "강의를 가져오는 중입니다!");
-            loading.start();
+            Log.i(TAG, "onPageStarted()");
+
+            if (loading == null) {
+                loading = new ShowLoading(A8_Learning.this, loadingTxt);
+                loading.start();
+            }
         }
 
         @Override
@@ -256,9 +262,15 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
+
+            Log.i(TAG, "onPageFinished()");
+
             //페이지 로딩 완료
             if (loading != null) {
+                Log.i(TAG, "loading.stop();");
                 loading.stop();
+                loading = null;/*----
+                ]''''''''''*/
             }
         }
     }
@@ -477,10 +489,18 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
 //        super.onBackPressed();
         final Handler handler = new Handler();
 
+        String alertTxt = "";
+
+        if (jucha == 0) {
+            alertTxt = "오리엔테이션을 종료합니다.";
+        }
+        else {
+            alertTxt = "강의를 종료합니다.";
+        }
+
         AlertDialog.Builder ab = new AlertDialog.Builder(this);
-        ab.setMessage("정말 강의를 종료하시겠어요?");
-        ab.setTitle("강의 종료");
-        ab.setPositiveButton("네", new DialogInterface.OnClickListener() {
+        ab.setMessage(alertTxt);
+        ab.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, final int which) {
                 if (enable) {
@@ -519,7 +539,7 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
                 }
             }
         });
-        ab.setNegativeButton("아니오", null);
+        ab.setNegativeButton("취소", null);
         ab.show();
     }
 
@@ -602,16 +622,4 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
 
         super.onDestroy();
     }
-
-//    @Override
-//    public void onConfigurationChanged(Configuration newConfig) {
-//        super.onConfigurationChanged(newConfig);
-//
-//        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-//            Log.i(TAG, "가로");
-//        }
-//        else {
-//            Log.i(TAG, "세로");
-//        }
-//    }
 }

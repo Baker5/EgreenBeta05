@@ -313,7 +313,7 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
                 setTabHighlight(HOME);
                 break;
             case R.id.btn_course:
-                if (si.getOrientation().equals("")) {
+                if (si.getOrientation().equals("False")) {
                     //오리엔테이션 열람 결과가 없으면 오리엔테이션을 먼저 선행 열람 해야한다.
                     showOrientationAlert();
                 }
@@ -512,6 +512,7 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
                 }
 
                 if (arrS[0].equals("OK")) {
+                    si.setOrientation("True");
                     goOrientation();
                 }
                 else if (arrS[0].equals("Err")) {
@@ -539,11 +540,23 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
             logoutByLoginOverlap(result);
         }
         else {
+            //오리엔테이션 벼튼 터치 이벤트
             if (s.equals("ori")) {
-                if (si.getOrientation().equals("")) {
+                if (si.getOrientation().equals("False")) {
+                    //오리엔테이션 미열람 상태면 우선 열람 처리 쿼리를 던진다.
                     netConnForWriteOrientation();
                 } else {
-                    goOrientation();
+                    //열람 완료 상태면 오리엔테이션을 즉시 보여준다.
+                    AlertDialog.Builder ab = new AlertDialog.Builder(this);
+                    ab.setMessage("[열람일자 : " + si.getOrientation() + "]\n다시 보시겠어요?");
+                    ab.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            goOrientation();
+                        }
+                    });
+                    ab.setNegativeButton("아니오", null);
+                    ab.show();
                 }
             }
         }
@@ -553,12 +566,12 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
      * 오리엔테이션을 들으러 간다. -> A8_Learning
      */
     private void goOrientation() {
-        if (si.getOrientation().equals("")) {
-            SharedPreferences savedOrien = getSharedPreferences("PARTI_ACT", MODE_PRIVATE);
-            SharedPreferences.Editor editor = savedOrien.edit();
-            editor.putString("SAVE_ORIEN", "True");
-            editor.commit();
-        }
+//        if (si.getOrientation().equals("False")) {
+//            SharedPreferences savedOrien = getSharedPreferences("PARTI_ACT", MODE_PRIVATE);
+//            SharedPreferences.Editor editor = savedOrien.edit();
+//            editor.putString("SAVE_ORIEN", "True");
+//            editor.commit();
+//        }
 
         try {
             Log.i(TAG, "getDirectoryName =========> " + si.getDirectoryName());
@@ -688,7 +701,7 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
                 ab.show();
             }
             else {
-                if (si.getOrientation() == "") {
+                if (si.getOrientation().equals("False")) {
                     showOrientationAlert();
                 }
                 else {
@@ -739,7 +752,7 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
 //        Log.i(TAG, "choise jucha ====> " + _jucha);
         choiseJucha = _jucha;
 
-        loading = new ShowLoading(this, "강의를 불러오는 중입니다");
+        loading = new ShowLoading(this, "목차를 불러오는 중입니다");
         loading.start();
 
         switchFragment(NOW);

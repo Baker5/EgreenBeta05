@@ -316,7 +316,7 @@ public class A2_Login extends AppCompatActivity implements View.OnClickListener 
             encodingPw = pw;
         }
 
-        String url = "http://cb.egreen.co.kr/mobile_proc/login/new/login_proc_m3.asp";
+        String url = "http://cb.egreen.co.kr/mobile_proc/login/new/login_proc_m2.asp";
         ContentValues cValue = new ContentValues();
         cValue.put("userId", id);
         cValue.put("userPw", encodingPw);
