@@ -43,6 +43,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     testImplementation 'junit:junit:4.12'
+    implementation 'com.google.firebase:firebase-messaging:20.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

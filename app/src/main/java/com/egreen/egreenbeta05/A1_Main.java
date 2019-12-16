@@ -20,9 +20,14 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.egreen.egreenbeta05.Adapter.A1_NoticeAdapter;
 import com.egreen.egreenbeta05.Data.A1_NoticeListData;
 import com.egreen.egreenbeta05.Dialog.UpdateNotify;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +35,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -87,6 +93,21 @@ public class A1_Main extends AppCompatActivity implements NetworkAsyncTasker.Asy
             /* 공지사항 */
             netConnForGetNotify();
         }
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("FCM Log", "getInstanceId failed", task.getException());
+                            return;
+                        }
+
+                        String token = task.getResult().getToken();
+                        Log.d("FCM Log", "FCM 토큰 ==> " + token);
+//                        Toast.makeText(A1_Main.this, token, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
@@ -179,9 +200,21 @@ public class A1_Main extends AppCompatActivity implements NetworkAsyncTasker.Asy
         a1_bannerImg2 = findViewById(R.id.a1_bannerImg2);     //배너 이미지2
         a1_bannerImg3 = findViewById(R.id.a1_bannerImg3);     //배너 이미지3
 
-        Glide.with(this).load("http://cb.egreen.co.kr/banner/images/image01.jpg").into(a1_bannerImg1);
-        Glide.with(this).load("http://cb.egreen.co.kr/banner/images/image02.jpg").into(a1_bannerImg2);
-        Glide.with(this).load("http://cb.egreen.co.kr/banner/images/image03.jpg").into(a1_bannerImg3);
+        Glide.with(this)
+                .load("http://cb.egreen.co.kr/banner/images/image01.jpg")
+                .skipMemoryCache(true)                              //메모리 캐싱 끄기
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)      //변형된 이미지만 캐싱
+                .into(a1_bannerImg1);
+        Glide.with(this)
+                .load("http://cb.egreen.co.kr/banner/images/image02.jpg")
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .into(a1_bannerImg2);
+        Glide.with(this)
+                .load("http://cb.egreen.co.kr/banner/images/image03.jpg")
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                .into(a1_bannerImg3);
     }
 
     /**

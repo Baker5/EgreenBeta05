@@ -399,7 +399,11 @@ public class A6_StudyCenter extends AppCompatActivity implements View.OnClickLis
     private void checkDong_Servey() {
         Intent intent;
         if (si.getStudyDate().equals("0")) {
-            showDoNotStudyDate(si.getStudyDate());
+//            showDoNotStudyDate(si.getStudyDate());
+
+            //테스트
+                goClassRoom();
+            //테스트
         }
         else if (si.getDongPost().equals("")) {
             //학습동의서 미완료시,

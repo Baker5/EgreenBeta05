@@ -60,7 +60,7 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
     private static final String LOGOUT = "logout";
 
     int choiseJucha;
-    int minJucha, maxJucha;
+    int minJucha = 1, maxJucha = 1;
     Button btn_home, btn_course;
     ShowLoading loading;
     ArrayList<A7_ClassNotiData> arrClassNoti;
@@ -180,7 +180,6 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
             arrClassNoti.clear();
 
             //과목별 공지사항 3개
-
             for (int i=0; i<notiInfo.length(); i++) {
                 JSONObject notiObj = notiInfo.getJSONObject(i);
 
@@ -202,8 +201,10 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
             JSONArray otherInfo = jsObj.getJSONArray("otherInfo");
             JSONObject otherInfoObj = otherInfo.getJSONObject(0);
 
-            minJucha = otherInfoObj.getInt("minJucha");
-            maxJucha = otherInfoObj.getInt("maxJucha");
+            if (otherInfoObj != null) {
+                minJucha = otherInfoObj.getInt("minJucha");
+                maxJucha = otherInfoObj.getInt("maxJucha");
+            }
 
             Log.i(TAG, "min jucha ==> " + minJucha);
             Log.i(TAG, "max jucha ==> " + maxJucha);
