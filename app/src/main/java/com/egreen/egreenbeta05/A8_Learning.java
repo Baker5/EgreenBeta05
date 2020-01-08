@@ -66,11 +66,11 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
         setContentView(R.layout.a8_learning);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-        if (Build.VERSION.SDK_INT <= 23) {
-            Log.i(TAG, "This is API Level 23");
+//        if (Build.VERSION.SDK_INT <= 23) {
+//            Log.i(TAG, "This is API Level 23");
             getWindow().getAttributes().width = WindowManager.LayoutParams.MATCH_PARENT;
             getWindow().getAttributes().height = WindowManager.LayoutParams.MATCH_PARENT;
-        }
+//        }
 
         wv = findViewById(R.id.wv);
 
@@ -108,6 +108,18 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+//        if (si.getUserId().equals("15200002")) {
+//            //2019 평가인정 Test
+//            jucha = 1;     //주차
+//            chasi = 0;     //차시
+//            eCid = intent.getStringExtra("CID");            //cid
+//            watchedTime = "40";    //학습 누적시간
+//            fullTime = "40";      //컨텐츠 전체시간
+//            fileRoot = "17/01.html";      //컨텐츠 파일 경로 ex)01/01.html
+//            enable = false;
+//            si.setDirectoryName("2019_07se");
+//        }
 
         //위 값들을 잘 가져왔는지 그냥.. 체크한다. 잘 가져왔겠지만.
         checkGetIntent();
@@ -170,7 +182,10 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
 
         //강의를 웹뷰에 띄운다.
         String contentsUrl;
-        String domain = "http://cb.egreen.co.kr/contents_m/android/" + si.getDirectoryName();
+
+        String domain = "";
+        domain = "http://cb.egreen.co.kr/contents_m/android/" + si.getDirectoryName();
+
         if (jucha == 0) {
             loadingTxt = "오리엔테이션을 불러오는 중입니다.";
             contentsUrl = domain + "/00/orientation.html";
@@ -362,6 +377,7 @@ public class A8_Learning extends AppCompatActivity implements NetworkAsyncTasker
                 public void run() {
                     Log.i(TAG, "JS 메세지: " + msg);
 
+                    //페이지 이어보기... 음
 //                    SharedPreferences savedPage = getSharedPreferences("CONTENTS", MODE_PRIVATE);
 //                    SharedPreferences.Editor editor = savedPage.edit();
 //                    editor.putString("SAVED_PAGE", msg);

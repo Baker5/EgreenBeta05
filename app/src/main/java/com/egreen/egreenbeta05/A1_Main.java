@@ -24,10 +24,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.egreen.egreenbeta05.Adapter.A1_NoticeAdapter;
 import com.egreen.egreenbeta05.Data.A1_NoticeListData;
 import com.egreen.egreenbeta05.Dialog.UpdateNotify;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -93,21 +89,6 @@ public class A1_Main extends AppCompatActivity implements NetworkAsyncTasker.Asy
             /* 공지사항 */
             netConnForGetNotify();
         }
-
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w("FCM Log", "getInstanceId failed", task.getException());
-                            return;
-                        }
-
-                        String token = task.getResult().getToken();
-                        Log.d("FCM Log", "FCM 토큰 ==> " + token);
-//                        Toast.makeText(A1_Main.this, token, Toast.LENGTH_SHORT).show();
-                    }
-                });
     }
 
     @Override

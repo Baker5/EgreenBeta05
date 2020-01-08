@@ -41,7 +41,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListener,
@@ -126,7 +128,7 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
      * 목차 데이터를 가져오기 위한 네트워크 연결
      */
     private void netConnForGetListData() {
-        String url = "http://cb.egreen.co.kr/mobile_proc/mypage/new/getClassRoomInfo_m2.asp";
+        String url = "http://cb.egreen.co.kr/mobile_proc/mypage/new/getClassRoomInfo_m.asp";
         ContentValues cValues = new ContentValues();
         cValues.put("userId", si.getUserId());
         cValues.put("classId", si.getClassId());
@@ -180,7 +182,7 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
             arrClassNoti.clear();
 
             //과목별 공지사항 3개
-            for (int i=0; i<notiInfo.length(); i++) {
+            for (int i=0; i<3; i++) {
                 JSONObject notiObj = notiInfo.getJSONObject(i);
 
                 int notiId = notiObj.getInt("notiId");
@@ -196,6 +198,8 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
             }
 
             int nDay = 0;
+//            minJucha = 1;
+//            maxJucha = 1;
 
             //시작/마지막 주차, 팁활동 현황 정보
             JSONArray otherInfo = jsObj.getJSONArray("otherInfo");
@@ -512,15 +516,15 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
                     Log.i(TAG, "Orientation Err : " + e.getMessage());
                 }
 
-                if (arrS[0].equals("OK")) {
-                    si.setOrientation("True");
-                    goOrientation();
-                }
-                else if (arrS[0].equals("Err")) {
+                if (arrS[0].equals("Err")) {
                     AlertDialog.Builder ab = new AlertDialog.Builder(A7_ClassRoom.this);
                     ab.setMessage("오류가 발생했습니다. 잠시 후, 다시 시도해주세요\n==오류 코드==\n" + arrS[1]);
                     ab.setPositiveButton("확인", null);
                     ab.show();
+                }
+                else {
+                    si.setOrientation(arrS[0]);
+                    goOrientation();
                 }
             }
         }
@@ -567,13 +571,6 @@ public class A7_ClassRoom extends AppCompatActivity implements View.OnClickListe
      * 오리엔테이션을 들으러 간다. -> A8_Learning
      */
     private void goOrientation() {
-//        if (si.getOrientation().equals("False")) {
-//            SharedPreferences savedOrien = getSharedPreferences("PARTI_ACT", MODE_PRIVATE);
-//            SharedPreferences.Editor editor = savedOrien.edit();
-//            editor.putString("SAVE_ORIEN", "True");
-//            editor.commit();
-//        }
-
         try {
             Log.i(TAG, "getDirectoryName =========> " + si.getDirectoryName());
         } catch (Exception e) {

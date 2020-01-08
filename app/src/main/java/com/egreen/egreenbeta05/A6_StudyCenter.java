@@ -187,8 +187,8 @@ public class A6_StudyCenter extends AppCompatActivity implements View.OnClickLis
 
         //과목 가져오기
         loading = new ShowLoading(A6_StudyCenter.this, "과목정보를 가져오는 중입니다.");
-        loading.start();
 
+        loading.start();
         asyncTask = new NetworkAsyncTasker(this, url, cValues, MAIN_LIST);
         asyncTask.execute();
     }
@@ -390,6 +390,7 @@ public class A6_StudyCenter extends AppCompatActivity implements View.OnClickLis
 
         //여기서 중복로그인 체크!
         //중복 로그인 체크
+
         netConnForOverlapCheck();
     }
 

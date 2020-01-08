@@ -123,15 +123,18 @@ public class A7_Tab1_F extends Fragment implements NetworkAsyncTasker.AsyncRespo
         minJucha = getArguments().getInt("MIN_JUCHA");
         maxJucha = getArguments().getInt("MAX_JUCHA");
         int choised_jucha = getArguments().getInt("CHOISE_JUCHA");
-        Log.i(TAG, "choised jucha => " + choised_jucha);
+        Log.i(TAG, "choised jucha => " + choised_jucha + ", minJucha => " + minJucha);
 
         String url = "http://cb.egreen.co.kr/mobile_proc/mypage/new/getCosSubjectList_Inc_m2.asp";
         ContentValues cValues = new ContentValues();
         cValues.put("userId", id);
         cValues.put("classId", classId);
 
-        if (choised_jucha == minJucha || choised_jucha == maxJucha || choised_jucha == 0) {
-            cValues.put("isAllList", "N");
+        if (minJucha == 1 && maxJucha == 1) {
+            cValues.put("isAllList", minJucha);
+        }
+        else if (choised_jucha == minJucha || choised_jucha == maxJucha || choised_jucha == 0) {
+            cValues.put("isAllList", "N");      //하단 '학습목차'를 터치했을때를 위함
         }
         else {
             cValues.put("isAllList", choised_jucha);
