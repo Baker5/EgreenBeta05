@@ -66,7 +66,7 @@ public class A6_StudyCenter extends AppCompatActivity implements View.OnClickLis
     String isThereHighSchoolName, isSurvey;
 
     /* 공인인증서 변수 */
-    private String appKey = "2O4zh+t/DZJR0ifytsXeZw==";     //정식 라이센스
+    private String appKey = "2O4zh+t/DZJR0ifytsXeZw==";     //정식 라이센스, 절대 변경하지 마세요!!
     private String[] rtnParams = {"a", "b", "c"};
 
     @Override
